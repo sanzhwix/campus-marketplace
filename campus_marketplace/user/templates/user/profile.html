@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h3 class="mb-4 text-center">My Profile</h3>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Email:</strong> {{ user.email }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>First name:</strong> {{ user.first_name }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Last name:</strong> {{ user.last_name }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Phone:</strong> {{ user.phone|default:"—" }}
+                    </li>
+                </ul>
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'user:logout' %}" class="btn btn-danger">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

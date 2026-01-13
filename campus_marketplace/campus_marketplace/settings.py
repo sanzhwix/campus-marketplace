@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,7 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+ckce5v1ofg2czh-s*q$jdtqn%c+9=26vzqwlyid$_anj%q@5n'
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'cart',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -112,3 +116,18 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CART_SESSION_ID = 'cart'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Default
+    # OR create a custom backend if needed
+]
+
+LOGIN_URL = 'user:login'
+LOGIN_REDIRECT_URL = 'user:profile'
+LOGOUT_REDIRECT_URL = 'user:login'
+
+
+AUTH_USER_MODEL = 'user.CustomUser'  # Make sure this is set
+
+
+

@@ -1,0 +1,88 @@
+/* GLOBAL */
+body {
+  background-color: #f8f9fa;
+}
+
+/* NAVBAR */
+.navbar-brand {
+  font-size: 1.4rem;
+}
+
+/* PRODUCT CARDS */
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-title a {
+  text-decoration: none;
+  color: #198754;
+  font-weight: 600;
+}
+
+.card-title a:hover {
+  text-decoration: underline;
+}
+
+/* BUTTONS */
+.btn-primary {
+  border-radius: 10px;
+}
+
+/* FOOTER */
+.footer {
+  font-size: 0.9rem;
+}
+
+
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: #198754; /* bootstrap green */
+  color: #ffffff;
+  margin-top: 60px;          /* ⬅ делает footer ниже */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer h5 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.footer p {
+  margin-bottom: 6px;
+  opacity: 0.95;
+}
+
+.footer a {
+  color: #ffffff;
+  opacity: 0.9;
+  transition: 0.2s ease;
+}
+
+.footer a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* Social icons */
+.footer i {
+  font-size: 1.2rem;
+}
+
+/* ===== PAGE LAYOUT FIX ===== */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}

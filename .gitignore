@@ -8,3 +8,15 @@ __pycache__/
 
 media/
 products/
+
+
+# Django
+db.sqlite3
+*.sqlite3
+
+# Media
+media/
+
+# Python
+__pycache__/
+*.pyc

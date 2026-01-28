@@ -7,63 +7,63 @@
 {% block content %}
 
 <style>
-/* ===== PAGE HEADER ===== */
-.page-header h1 {
-    font-weight: 700;
-}
+    /* ===== PAGE HEADER ===== */
+    .page-header h1 {
+        font-weight: 700;
+    }
 
-.sort-btn {
-    border-radius: 10px;
-}
+    .sort-btn {
+        border-radius: 10px;
+    }
 
-/* ===== PRODUCT CARD ===== */
-.product-card {
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-    transition: transform .2s ease, box-shadow .2s ease;
-    overflow: hidden;
-}
+    /* ===== PRODUCT CARD ===== */
+    .product-card {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        transition: transform .2s ease, box-shadow .2s ease;
+        overflow: hidden;
+    }
 
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 35px rgba(0,0,0,0.1);
-}
+    .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.1);
+    }
 
-.product-image {
-    height: 220px;
-    object-fit: cover;
-}
+    .product-image {
+        height: 220px;
+        object-fit: cover;
+    }
 
-.product-body {
-    padding: 20px;
-}
+    .product-body {
+        padding: 20px;
+    }
 
-.product-title {
-    font-weight: 600;
-    color: #198754;
-    text-decoration: none;
-}
+    .product-title {
+        font-weight: 600;
+        color: #198754;
+        text-decoration: none;
+    }
 
-.product-title:hover {
-    text-decoration: underline;
-}
+    .product-title:hover {
+        text-decoration: underline;
+    }
 
-.product-price {
-    font-size: 1.1rem;
-    font-weight: 700;
-}
+    .product-price {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
 
-.product-btn {
-    border-radius: 10px;
-    font-weight: 600;
-}
+    .product-btn {
+        border-radius: 10px;
+        font-weight: 600;
+    }
 
-/* EMPTY */
-.empty-box {
-    border-radius: 14px;
-    padding: 30px;
-}
+    /* EMPTY */
+    .empty-box {
+        border-radius: 14px;
+        padding: 30px;
+    }
 </style>
 
 <!-- ===== HEADER ===== -->
@@ -71,8 +71,7 @@
     <h1>{% if category %}{{ category.name }}{% else %}Все товары{% endif %}</h1>
 
     <div class="dropdown">
-        <button class="btn btn-outline-secondary dropdown-toggle sort-btn"
-                type="button" data-bs-toggle="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle sort-btn" type="button" data-bs-toggle="dropdown">
             Сортировка
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -95,25 +94,42 @@
     <div class="col-lg-4 col-md-6 mb-4">
         <div class="card product-card h-100">
 
-            <a href="{{ product.get_absolute_url }}">
-                <img src="{{ product.image.url }}"
-                     class="card-img-top product-image"
-                     alt="{{ product.name }}">
+            <a href="{{ product.get_absolute_url }}" class="d-block product-image-box">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top product-image" alt="{{ product.name }}">
+                {% else %}
+                <div class="bg-light d-flex align-items-center justify-content-center" style="height:220px;">No image
+                </div>
+                {% endif %}
             </a>
 
             <div class="product-body d-flex flex-column">
-                <a href="{{ product.get_absolute_url }}" class="product-title">
+                <a href="{{ product.get_absolute_url }}" class="product-title mb-2">
                     {{ product.name }}
                 </a>
+
+                <div class="text-muted small mb-2">Seller: {{ product.seller.email|default:"—" }}</div>
 
                 <div class="mt-auto">
                     <div class="product-price mb-2">
                         {{ product.price }} тнг.
                     </div>
-                    <a href="{{ product.get_absolute_url }}"
-                       class="btn btn-outline-success w-100 product-btn">
-                        Подробнее
-                    </a>
+
+                    <div class="d-grid gap-2">
+                        <a href="{{ product.get_absolute_url }}"
+                            class="btn btn-outline-success product-btn">Подробнее</a>
+
+                        {# Chat button: only show to other users; anonymous users are redirected to login #}
+                        {% if user.is_authenticated %}
+                        {% if product.seller and user != product.seller %}
+                        <a href="{% url 'chat:open_room_for_product' product.id %}" class="btn btn-outline-primary">💬
+                            Chat</a>
+                        {% endif %}
+                        {% else %}
+                        <a href="{% url 'user:login' %}?next={% url 'chat:open_room_for_product' product.id %}"
+                            class="btn btn-outline-primary">💬 Chat</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 

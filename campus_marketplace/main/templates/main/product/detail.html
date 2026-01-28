@@ -5,91 +5,91 @@
 {% block content %}
 
 <style>
-/* ===== PRODUCT DETAIL ===== */
-.product-detail-wrapper {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-}
-
-.product-image-box {
-    border-radius: 16px;
-    overflow: hidden;
-    background: #f8f9fa;
-}
-
-.product-image-box img {
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-}
-
-.product-info h1 {
-    font-weight: 700;
-}
-
-.product-price {
-    font-size: 26px;
-    font-weight: 700;
-    color: #198754;
-}
-
-.product-category a {
-    color: #198754;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.product-category a:hover {
-    text-decoration: underline;
-}
-
-.product-description {
-    margin-top: 30px;
-}
-
-.product-description h4 {
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-/* ===== ADD TO CART ===== */
-.add-to-cart-btn {
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 14px;
-}
-
-/* ===== RELATED ===== */
-.related-title {
-    font-weight: 700;
-    margin-bottom: 25px;
-}
-
-.related-card {
-    border-radius: 14px;
-    border: none;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    transition: transform .2s ease;
-}
-
-.related-card:hover {
-    transform: translateY(-4px);
-}
-
-.related-card img {
-    height: 160px;
-    object-fit: cover;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .product-image-box img {
-        height: 260px;
+    /* ===== PRODUCT DETAIL ===== */
+    .product-detail-wrapper {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     }
-}
+
+    .product-image-box {
+        border-radius: 16px;
+        overflow: hidden;
+        background: #f8f9fa;
+    }
+
+    .product-image-box img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+    }
+
+    .product-info h1 {
+        font-weight: 700;
+    }
+
+    .product-price {
+        font-size: 26px;
+        font-weight: 700;
+        color: #198754;
+    }
+
+    .product-category a {
+        color: #198754;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .product-category a:hover {
+        text-decoration: underline;
+    }
+
+    .product-description {
+        margin-top: 30px;
+    }
+
+    .product-description h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    /* ===== ADD TO CART ===== */
+    .add-to-cart-btn {
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 14px;
+    }
+
+    /* ===== RELATED ===== */
+    .related-title {
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .related-card {
+        border-radius: 14px;
+        border: none;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        transition: transform .2s ease;
+    }
+
+    .related-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .related-card img {
+        height: 160px;
+        object-fit: cover;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+        .product-image-box img {
+            height: 260px;
+        }
+    }
 </style>
 
 <div class="product-detail-wrapper">
@@ -129,38 +129,47 @@
                     🛒 Добавить в корзину
                 </button>
             </form>
-        </div>
-    </div>
-
-{% if related_products %}
-<div class="related-products mt-5">
-    <h2 class="mb-4">Похожие товары</h2>
-
-    <div class="row">
-        {% for product in related_products %}
-        <div class="col-md-4 mb-4">
-            <div class="card related-card h-100 shadow-sm">
-
-                <!-- ВАЖНО: stretched-link -->
-                <a href="{{ product.get_absolute_url }}" class="stretched-link"></a>
-
-                {% if product.image %}
-                <img src="{{ product.image.url }}"
-                     class="card-img-top"
-                     alt="{{ product.name }}">
+            <div class="mt-2">
+                {% if user.is_authenticated %}
+                {% if product.seller and user != product.seller %}
+                <a href="{% url 'chat:open_room_for_product' product.id %}" class="btn btn-outline-primary w-100">💬
+                    Chat with seller</a>
                 {% endif %}
-
-                <div class="card-body text-center">
-                    <h6 class="mb-2">{{ product.name }}</h6>
-                    <strong class="text-success">{{ product.price }} тнг.</strong>
-                </div>
-
+                {% else %}
+                <a href="{% url 'user:login' %}?next={% url 'chat:open_room_for_product' product.id %}"
+                    class="btn btn-outline-primary w-100">💬 Chat with seller</a>
+                {% endif %}
             </div>
         </div>
-        {% endfor %}
     </div>
-</div>
-{% endif %}
+
+    {% if related_products %}
+    <div class="related-products mt-5">
+        <h2 class="mb-4">Похожие товары</h2>
+
+        <div class="row">
+            {% for product in related_products %}
+            <div class="col-md-4 mb-4">
+                <div class="card related-card h-100 shadow-sm">
+
+                    <!-- ВАЖНО: stretched-link -->
+                    <a href="{{ product.get_absolute_url }}" class="stretched-link"></a>
+
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% endif %}
+
+                    <div class="card-body text-center">
+                        <h6 class="mb-2">{{ product.name }}</h6>
+                        <strong class="text-success">{{ product.price }} тнг.</strong>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
 
 </div>

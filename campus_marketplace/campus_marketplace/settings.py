@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'main',
     'cart',
     'user',
+    'chat',
 ]
 
 MIDDLEWARE = [

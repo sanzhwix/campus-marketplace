@@ -39,6 +39,14 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    # optional seller/owner of the product; added so buyers can chat with seller
+    seller = models.ForeignKey(
+        'user.CustomUser',
+        related_name='products',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         ordering = ('name',)

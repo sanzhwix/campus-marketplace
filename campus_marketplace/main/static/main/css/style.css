@@ -86,3 +86,172 @@ body {
 main {
   flex: 1;
 }
+
+
+
+
+
+.add-to-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 400px;
+
+    margin-top: 25px;
+
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+
+    border-radius: 12px;
+}
+
+
+
+
+
+
+/* ===== MESSAGES PAGE ===== */
+
+.messages-card {
+    border-radius: 16px;
+}
+
+.messages-title {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.message-item {
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.message-item:hover {
+    background-color: #f8f9fa;
+}
+
+.message-product {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.message-preview {
+    font-size: 14px;
+    color: #555;
+}
+
+.message-btn {
+    border-radius: 20px;
+    padding: 6px 14px;
+}
+
+
+
+
+
+/* ===== CHAT PAGE ===== */
+
+.chat-card {
+    border-radius: 16px;
+}
+
+.chat-title {
+    font-weight: 700;
+}
+
+.chat-title span {
+    color: #198754;
+}
+
+.chat-messages {
+    max-height: 420px;
+    overflow-y: auto;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: #fafafa;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.chat-message strong {
+    color: #198754;
+}
+
+.chat-input-group {
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.chat-input {
+    border-radius: 30px 0 0 30px;
+}
+
+.chat-send-btn {
+    border-radius: 0 30px 30px 0;
+    padding: 0 24px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+/* ===== ORANGE THEME ===== */
+
+/* Navbar */
+.navbar {
+    background-color: #fd7e14 !important;
+}
+
+/* Footer */
+.footer {
+    background-color: #fd7e14 !important;
+}
+
+/* Primary buttons */
+.btn-success,
+.btn-primary {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+}
+
+.btn-success:hover,
+.btn-primary:hover {
+    background-color: #e96b0c;
+    border-color: #e96b0c;
+}
+
+/* Add to cart button */
+.add-to-cart-btn {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #e96b0c;
+}
+
+/* Chat accents */
+.chat-message strong,
+.chat-title span {
+    color: #fd7e14;
+}
+
+/* Message buttons */
+.message-btn {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+}
+
+.message-btn:hover {
+    background-color: #e96b0c;
+}

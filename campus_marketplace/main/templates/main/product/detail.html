@@ -56,10 +56,10 @@
 
     /* ===== ADD TO CART ===== */
     .add-to-cart-btn {
-        border-radius: 12px;
-        font-size: 18px;
+        border-radius: 10px;
+        font-size: 16px;
         font-weight: 600;
-        padding: 14px;
+        padding: 10px;
     }
 
     /* ===== RELATED ===== */
@@ -125,7 +125,7 @@
             <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mt-4">
                 {{ cart_product_form }}
                 {% csrf_token %}
-                <button type="submit" class="btn btn-success w-100 add-to-cart-btn">
+                <button type="submit" class="btn btn-success  add-to-cart-btn">
                     🛒 Добавить в корзину
                 </button>
             </form>

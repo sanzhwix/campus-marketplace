@@ -1,36 +1,44 @@
 {% extends 'main/base.html' %}
-
 {% block title %}Messages{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card shadow">
+        <div class="card shadow messages-card">
             <div class="card-body">
-                <h4 class="mb-3">Messages</h4>
+                <h4 class="mb-3 messages-title">Messages</h4>
 
                 {% if not inbox_items %}
                 <div class="alert alert-info">No messages yet.</div>
                 {% else %}
-                <ul class="list-group">
+                <ul class="list-group list-group-flush">
                     {% for item in inbox_items %}
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <li class="list-group-item d-flex justify-content-between align-items-start message-item">
                         <div>
-                            <strong>{{ item.room.product.name }}</strong>
+                            <div class="message-product">
+                                {{ item.room.product.name }}
+                            </div>
+
                             {% if item.last_message %}
-                            <div class="mt-1">{{ item.last_message.sender.get_full_name|default:item.last_message.sender.email }}: {{ item.last_message.content|truncatechars:60 }}</div>
+                            <div class="message-preview mt-1">
+                                {{ item.last_message.sender.get_full_name|default:item.last_message.sender.email }}:
+                                {{ item.last_message.content|truncatechars:60 }}
+                            </div>
                             {% else %}
-                            <div class="mt-1 text-muted">No messages yet.</div>
+                            <div class="message-preview text-muted mt-1">
+                                No messages yet.
+                            </div>
                             {% endif %}
                         </div>
-                        <div>
-                            <a href="{% url 'chat:room' room_id=item.room.id %}" class="btn btn-sm btn-primary">Open</a>
-                        </div>
+
+                        <a href="{% url 'chat:room' room_id=item.room.id %}"
+                           class="btn btn-sm btn-success message-btn">
+                            Open
+                        </a>
                     </li>
                     {% endfor %}
                 </ul>
                 {% endif %}
-
             </div>
         </div>
     </div>

@@ -4,57 +4,57 @@
 {% block content %}
 
 <style>
-.auth-card {
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-}
+    .auth-card {
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
 
-.auth-header {
-    background: linear-gradient(135deg, #198754, #20c997);
-    color: white;
-    text-align: center;
-    padding: 30px;
-}
+    .auth-header {
+        background: linear-gradient(135deg, #198754, #20c997);
+        color: white;
+        text-align: center;
+        padding: 30px;
+    }
 
-.auth-header h3 {
-    margin-bottom: 5px;
-    font-weight: 600;
-}
+    .auth-header h3 {
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
 
-.auth-body {
-    padding: 30px;
-}
+    .auth-body {
+        padding: 30px;
+    }
 
-.auth-body input {
-    border-radius: 10px;
-    padding: 10px 14px;
-}
+    .auth-body input {
+        border-radius: 10px;
+        padding: 10px 14px;
+    }
 
-.auth-body label {
-    font-weight: 500;
-}
+    .auth-body label {
+        font-weight: 500;
+    }
 
-.auth-body .btn {
-    border-radius: 10px;
-    padding: 10px;
-    font-weight: 600;
-}
+    .auth-body .btn {
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: 600;
+    }
 
-.auth-footer {
-    text-align: center;
-    margin-top: 20px;
-}
+    .auth-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
 
-.auth-footer a {
-    color: #198754;
-    font-weight: 600;
-    text-decoration: none;
-}
+    .auth-footer a {
+        color: #198754;
+        font-weight: 600;
+        text-decoration: none;
+    }
 
-.auth-footer a:hover {
-    text-decoration: underline;
-}
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <div class="row justify-content-center">
@@ -69,6 +69,7 @@
             <div class="auth-body">
                 <form method="post">
                     {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
 
                     {{ form.non_field_errors }}
 

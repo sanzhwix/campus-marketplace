@@ -77,13 +77,30 @@ class CustomUserCreationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():
+        if not email:
+            return email
+        email = email.strip().lower()
+        if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError('This email is already in use.')
         return email
     
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.phone = self.cleaned_data['phone']
+        # normalize email and set phone
+        email = self.cleaned_data.get('email')
+        if email:
+            user.email = email.strip().lower()
+
+        phone = self.cleaned_data.get('phone')
+        if phone:
+            user.phone = phone
+
+        # Ensure password is set correctly (UserCreationForm already handles it,
+        # but set explicitly from cleaned_data to be safe)
+        raw_password = self.cleaned_data.get('password1')
+        if raw_password:
+            user.set_password(raw_password)
+
         if commit:
             user.save()
         return user

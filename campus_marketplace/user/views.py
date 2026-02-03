@@ -16,7 +16,9 @@ def register(request):
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'user/register.html', {'form': form})
+    # compute a safe `next` value for the template to use (avoid template lookups like request.GET.next)
+    next_value = request.POST.get('next') or request.GET.get('next') or ''
+    return render(request, 'user/register.html', {'form': form, 'next': next_value})
 
 
 def login_view(request):
@@ -32,7 +34,9 @@ def login_view(request):
         # pass request so the form has access to it (important for some auth flows)
         form = CustomUserLoginForm(request=request)
 
-    return render(request, 'user/login.html', {'form': form})
+    # expose a safe `next` variable to the template
+    next_value = request.POST.get('next') or request.GET.get('next') or ''
+    return render(request, 'user/login.html', {'form': form, 'next': next_value})
 
 
 @login_required
